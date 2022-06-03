@@ -189,6 +189,7 @@ Apify.main(async () => {
             /** @type {any} */
             await puppeteer.blockRequests(page, {
                 urlPatterns: URL_PATTERNS_TO_BLOCK.concat([
+                    LABELS.LOOKUP,
                     LABELS.DETAIL,
                     LABELS.ZPIDS,
                     LABELS.ENRICHED_ZPIDS,
@@ -250,6 +251,8 @@ Apify.main(async () => {
                 queryZpid = await pageHandler.handleInitialPage(queryZpid, loadQueue);
             } else if (label === LABELS.DETAIL) {
                 await pageHandler.handleDetailPage();
+            } else if (label === LABELS.LOOKUP) {
+                await pageHandler.handleLookupPage(queryZpid);
             } else if (label === LABELS.ZPIDS || label === LABELS.ENRICHED_ZPIDS) {
                 await pageHandler.handleZpidsPage(queryZpid);
             } else if (label === LABELS.QUERY || label === LABELS.SEARCH) {

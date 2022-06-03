@@ -6,6 +6,7 @@ const LABELS = {
     INITIAL: 'INITIAL',
     DETAIL: 'DETAIL',
     SEARCH: 'SEARCH',
+    LOOKUP: 'LOOKUP',
     ZPIDS: 'ZPIDS',
     ENRICHED_ZPIDS: 'ENRICHED_ZPIDS',
 };
@@ -133,6 +134,7 @@ const ORIGIN = 'https://www.zillow.com/';
  *   zipcodes?: string[]
  *   startUrls?: any[]
  *   type?: string
+ *   lookup?: string
  *   zpids?: string[]
  * }} Input
  */

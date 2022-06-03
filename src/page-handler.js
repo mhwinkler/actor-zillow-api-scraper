@@ -255,6 +255,26 @@ class PageHandler {
     /**
      * @param {ReturnType<typeof createQueryZpid>} queryZpid
      */
+    async handleLookupPage(queryZpid) {
+        const { request, page, requestQueue, session } = this.context;
+        const { address } = request.userData;
+
+        const url = page.url();
+        const urlData = fns.getUrlData(url)
+        log.info(`handleLookupPage: ${address}`);
+        log.info(`Start scraping URL: ${url}`);
+
+        if (urlData?.zpid) {
+            await this.processZpid(urlData.zpid, '', queryZpid, false);
+        } else {
+            throw Error("ZPID not found in page");
+        }
+        return queryZpid
+    }
+
+    /**
+     * @param {ReturnType<typeof createQueryZpid>} queryZpid
+     */
     async handleZpidsPage(queryZpid) {
         const { request } = this.context;
         const { zpids } = request.userData;

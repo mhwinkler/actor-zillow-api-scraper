@@ -14,10 +14,11 @@ const {
 
 /**
  * Throws error if the provided input is invalid.
- * @param {{ search: String, startUrls: any[], zpids: any[], zipcodes: any[], maxLevel: number }} input
+ * @param {{ search: String, lookup: String, startUrls: any[], zpids: any[], zipcodes: any[], maxLevel: number }} input
  */
 const validateInput = (input) => {
     if (!(input.search && input.search.trim().length > 0)
+        && !(input.lookup && input.lookup.trim().length > 0)
         && !(input.startUrls?.length)
         && !(input.zpids?.length)
         && !(input.zipcodes?.length)
@@ -194,6 +195,19 @@ Check if your start urls match the desired home status.`);
         }
 
         log.info(`Added ${count} zipcodes`);
+    }
+
+    if (input.lookup?.trim()) {
+        const address = input.lookup.trim().replace(/[\s]+/g, '-').replace(/[^\w,-]+/g, '');
+        console.log(`Queueing lookup for "${address}"`);
+        await rq.addRequest({
+            url: `https://www.zillow.com/homes/${encodeURIComponent(address)}_rb/`,
+            uniqueKey: `${address}`,
+            userData: {
+                label: LABELS.LOOKUP,
+                address,
+            },
+        });
     }
 };
 

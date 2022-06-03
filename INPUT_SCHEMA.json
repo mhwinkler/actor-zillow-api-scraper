@@ -10,6 +10,13 @@
             "prefill": "Los Angeles",
             "description": "Query to search on Zillow.com"
         },
+        "lookup": {
+            "title": "Lookup",
+            "type": "string",
+            "editor": "textarea",
+            "prefill": "123 Main St, Los Angeles, CA 90023",
+            "description": "Property address to lookup on Zillow.com"
+        },
         "type": {
             "title": "Type",
             "type": "string",
